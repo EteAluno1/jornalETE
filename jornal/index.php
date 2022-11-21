@@ -1,5 +1,6 @@
 <?php
 require_once('conexao.php');
+require('conexaoarquivos.php');
 $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
 ?>
 <!doctype html>
@@ -8,8 +9,6 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
     <title>Jornal ETE</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/blog/">
@@ -17,6 +16,13 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
     <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="style/btn.css">
     <link rel="stylesheet" href="style/style.css">
+
+
+
+
+
+
+
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -26,17 +32,121 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
     <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
     <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#712cf9">
-
-
-
-
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
+
+    <style>
+      
+  .container2 {
+    height: 300px;
+    width: 600px;
+    display: flex;
+  }
+  .card2 {
+    display: flex;
+    height: 280px;
+    width: 200px;
+    background-color: #160079;
+    border-radius: 10px;
+    box-shadow: -1rem 0 3rem #160079b2;
+  /*   margin-left: -50px; #17141d */
+    transition: 0.4s ease-out;
+    position: relative;
+    left: 0px;
+  }
+  
+  .card2:not(:first-child) {
+      margin-left: -50px;
+  }
+  
+  .card2:hover {
+    transform: translateY(-20px);
+    transition: 0.4s ease-out;
+  }
+  
+  .card2:hover ~ .card2 {
+    position: relative;
+    left: 50px;
+    transition: 0.4s ease-out;
+  }
+  
+  .title2 {
+    color: white;
+    font-weight: 300;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+  }
+  .title3 {
+    color: white;
+    font-weight: 300;
+    position: absolute;
+    left: 20px;
+    top: 50px;
+  }
+  
+  .bar2 {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    height: 5px;
+    width: 150px;
+  }
+  
+  .emptybar2 {
+    background-color: #2e3033;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .filledbar2 {
+    position: absolute;
+    top: 0px;
+    z-index: 3;
+    width: 0px;
+    height: 100%;
+    background: rgb(0,154,217);
+    background: linear-gradient(90deg, rgb(255, 251, 0) 0%, rgb(1, 255, 13) 50%, rgb(255, 0, 0) 100%);
+    transition: 0.6s ease-out;
+  }
+  
+  .card2:hover .filledbar2 {
+    width: 153px;
+    transition: 0.4s ease-out;
+  }
+  
+  .circle2 {
+    position: absolute;
+    top: 150px;
+    left: calc(50% - 60px);
+  }
+  
+  .stroke2 {
+    stroke: yellow;
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    transition: 0.6s ease-out;
+  }
+  
+  svg {
+    fill: #17141d;
+    stroke-width: 2px;
+  }
+  
+  .card2:hover .stroke2 {
+    stroke-dashoffset: 100;
+    transition: 0.6s ease-out;
+  }
+  .img{
+    position: absolute;
+    z-index: 2;
+    left: 13px;
+    top: 10px;
+  }
+    </style>
   </head>
   <body>
-
-    
 <div class="container">
   <header class="blog-header lh-1 py-3">
         <nav class="navbar navbar-expand-md navbar-light fixed-top ">
@@ -78,59 +188,60 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
     </div>
   </div> <!-- fim da noticia principal -->
 
-  <hr>
-
-  <div id="carouselExampleSlidesOnly" class="carousel slide mb-5" data-bs-ride="carousel">
-    <h1 class="text-center mb-4" >Equipe do Jornal</h1>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="row">
+  <hr> 
+    
+  <h1 class="text-center mb-4">Equipe</h1>
+  <div class="container2 ms-4"> 
           <?php
             while($usuarios = $sql_query->fetch_assoc()){
           ?>
-            <div class="col-lg-4 text-center">
-              <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="<?php echo $usuarios['caminho_imagem_perfil']?>" onerror="if (this.src != 'img/logo.png') this.src = 'img/slide1.jpg';" alt="">
-              <h2 class="fw-normal text-center"><?php echo $usuarios['nome'] ?></h2>
-              <p><?php echo $usuarios['descricao'] ?></p>
+            <div class="text-center me-3">
+              <div class="card2">
+                <h3 class="title2"><?php echo $usuarios['nome'] ?></h3>
+                <p class="title3" ><?php echo $usuarios['descricao'] ?></p>
+                <div class="bar2">
+                  <div class="emptybar2"></div>
+                  <div class="filledbar2"></div>
+                </div>
+                <div class="circle2">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="stroke2" cx="60" cy="60" r="50"/>
+                  </svg>
+                  <img class="bd-placeholder-img rounded-circle img" width="100" height="100" src="<?php echo $usuarios['caminho_imagem_perfil']?>" onerror="if (this.src != 'img/logo.png') this.src = 'img/slide1.jpg';" alt="">
+                </div>
+              </div>
             </div><!-- /.col-lg-4 -->
             <?php
             }
             ?>
-          </div><!-- /.row -->
-        </div>
-    
   </div>
-  
-  <hr>
+            
 
   <div class="row mb-2">
 
-    <h1 class="text-center mb-4" > Noticias </h1>
+    <h1 class="text-center mb-4" > 
+      
+      Noticias 
 
-      <?php 
-          $sql_query = $conexao->query("SELECT * FROM noticias ") or die($conexao->error);
-          while($titulos = $sql_query->fetch_assoc()){
-      ?>
-    <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-success"></strong>
-            <h3 class="mb-0"><?php echo $titulos['titulo'] ?></h3>
-            <div class="mb-1 text-muted"><?php echo $titulos['data_upload'] ?></div>
-            <p class="mb-auto"><?php echo $titulos['conteudo'] ?></p>
-            <a href="noticias.php" class="stretched-link mt-2">Continue lendo...</a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <img src="<?php echo $titulos['caminho_imagem'] ?>" width="210" height="210" alt="">
+    </h1>      
 
-          </div>
-        </div>
-      </div>
       <?php
-            }
-      ?> 
-    </div>
+      $query = $pdo->prepare("SELECT * FROM noticias");
+      $query -> execute();
 
+      foreach($query as $noticias):
+        echo '
+            <hr>
+            <div class="mb-4" >'.$noticias['card_noticia'].'</div>
+            <hr>
+        
+        ';
+   
+
+
+      endforeach;  
+        ?>
+      
   </div>
 
   
@@ -160,13 +271,11 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
   </div>
   
 
-<footer class="container">
+  <footer class="container">
     <p class="text-center mt-3">&copy; 2022–2023 ETE Antonio Arruda</p>
   </footer>
 
-<div class="receba2">
-
-</div>
+  <div class="receba2"></div>
 
 </main>
 
@@ -196,7 +305,7 @@ function topFunction() {
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
