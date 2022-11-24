@@ -1,35 +1,13 @@
-
+<?php
+require_once('conexaoarquivos.php');
+?>
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
-    <title>Blog Template · Bootstrap v5.2</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/blog/">
-    <link href="style/bootstrap/css/bootstrap.css" rel="stylesheet" >
-
-    
-    
-
-    
-
-    
-
-<link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
-
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-
+    <title>Noticias</title>
+    <link href="assets/style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
 
 <style>
      
@@ -105,7 +83,7 @@ a:hover{
 
         body {
   
-  background: url(img/background.jpg); 
+  background: url(assets/img/background.jpg); 
   background-size: 100%;
   }
 
@@ -156,7 +134,7 @@ a:hover{
   <header class="blog-header lh-1 py-3">
   <nav class="navbar navbar-expand-md navbar-light fixed-top">
           <div class="container-fluid">
-            <a class="navbar-brand" href="index.php"><img src="img/logoo.png" width="90px" height="60px" alt=""></a>
+            <a class="navbar-brand" href="index.php"><img src="assets/img/logoo.png" width="90px" height="60px" alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -188,26 +166,24 @@ a:hover{
     
     <section class="row" >
         <div class="col-md-12">
-          <?php 
-              include("conexao.php");
-              $sql_query = $conexao->query("SELECT * FROM noticias ") or die($conexao->error);
-              while($titulos = $sql_query->fetch_assoc()){
-          ?>
+        <?php
+          $query = $pdo->prepare("SELECT * FROM noticias");
+          $query -> execute();
+
+          while($noticias = $query->fetch(PDO::FETCH_ASSOC)){
+
+          ?> 
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 mt-4  shadow-sm h-md-250 position-relative">
 
             <div class="card text-center">
               <div class="card-header">
-                <p><?php echo $titulos['categoria']?></p>
+                <p><?php echo $noticias['categoria']?></p>
               </div>
-              <div class="card-body">
-                 
-                  
-                   <h5 class="card-title"><?php echo $titulos['titulo_principal'] ?></h5>
-                  <img src="<?php echo $titulos['caminho_imagem_principal'] ?>" width="90%" height="500" alt="">
-                  <p class="card-text text-break"><?php echo $titulos['conteudo_principal'] ?></p>
+              <div class="card-body">             
+                   <?php echo $noticias['card_noticia'] ?>
               </div>
               <div class="card-footer text-muted">
-                <?php echo date("d/m/Y", strtotime($titulos['data_upload'])); ?>
+                <?php echo date("d/m/Y", strtotime($noticias['data_upload'])); ?>
               </div>
               
           </div>

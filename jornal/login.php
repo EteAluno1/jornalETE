@@ -13,7 +13,7 @@ include('conexao.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornal ETE</title>
-    <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="assets/style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
 
     <style>
     html,body {
@@ -25,7 +25,7 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background: url(img/background.jpg); 
+  background: url(assets/img/background.jpg); 
   background-size: 100%;
   
 }
@@ -99,7 +99,7 @@ main{
     
     <main class="form-signin w-100 m-auto rounded">
         <form action="login_vali.php" method="POST">
-          <img class="mb-3" src="img/logoo.png" alt="logo-jete" >
+          <img class="mb-3" src="assets/img/logoo.png" alt="logo-jete" >
           <h1 class="h3 mb-3 fw-normal">Login</h1>
       
           <div class="form-floating">
@@ -126,6 +126,6 @@ main{
         </form>
       </main>
 
-      <script src="style/bootstrap/js/bootstrap.bundle.min.js" ></script>
+      <script src="assets/style/bootstrap/js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>

@@ -1,0 +1,17 @@
+
+/*nav{
+    animation-name: border;
+    animation-duration: 30s;
+    animation-iteration-count: infinite;
+  }  
+  
+    @keyframes border{
+      0% {border-top: solid 5px blue;}
+      25% {border-top: solid 5px yellow;}
+      50% {border-top: solid 5px green;}
+      100% {border-top: solid 5px red ;}
+    } */
+
+    nav{
+      background-image: linear-gradient(to right, #00CED1, RGBA( 0, 0, 205, 1 ) );
+    }

@@ -1,6 +1,7 @@
-nav{
-    background-image: linear-gradient(to right, #00CED1, #673DFF );
+nav {
+    background-image: linear-gradient(to right, #00CED1, #673DFF);
 }
-.main-conteudo{
+
+.main-conteudo {
     height: 700px;
 }

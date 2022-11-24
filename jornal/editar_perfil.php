@@ -39,7 +39,7 @@ $usuarios = $sql_query->fetch_assoc();
 <style>
 
 body {
-    background-image: url(img/background.jpg);
+    background-image: url(assets/img/background.jpg);
     background-size: 110%;
 }</style>
 

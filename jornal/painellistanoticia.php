@@ -2,10 +2,13 @@
 session_start();
 include('verifica_login.php');
 require_once('conexao.php');
+require_once('conexaoarquivos.php');
 $sql_query = $conexao->query("SELECT * FROM noticias ") or die($conexao->error);
 $perfil = $_SESSION['nome'];
 $sql_query_usuarios = $conexao->query("SELECT matricula,nome,caminho_imagem_perfil,caminho_imagem_background,descricao FROM usuarios WHERE nome="."'".$_SESSION['nome']."'") or die($conexao->error);
 $usuarios = $sql_query_usuarios->fetch_assoc();
+
+
 
 ?>
 
@@ -15,196 +18,166 @@ $usuarios = $sql_query_usuarios->fetch_assoc();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
-    <link href="efeitos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link href="assets/style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style/listanoticia.css">
     <title>Painel</title>
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <header class="border border-bottom border-primary" >
+    <nav class="navbar navbar-expand-md navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.php"><img src="img/logoo.png" width="90px" height="60px" alt=""></a>
+        <a class="navbar-brand" href="index.php"><img src="assets/img/logoo.png" width="90px" height="60px" alt=""></a>
       </div>
     </nav> 
   </header>
-  <main class="container-bg bg-secondary bg-opacity-50 rounded ms-4 mt-4 me-4 mb-4">
+  <main class="container-bg">
     <div class="row">
-      <div class="col" >
-          <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary min-vh-100" >
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-              <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-              <span class="fs-4">Dashboard</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-              <li class="nav-item">
-                <a href="paineladdnoticia.php" class="nav-link text-white" aria-current="page">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-                  Adicionar Noticias
+      <div class="col-2 col-sm-1 g-0 text-center" style="background: rgb(103,61,255); background: linear-gradient(0deg, RGBA( 0, 0, 205, 1 ) 10%, rgba(0,206,209,1) 100%); );" >
+        <a id="btn" class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+          <i class="text-center bi bi-list" ></i>
+        </a>
+        <hr>
+        <a class="btn w-100" href="paineladdnoticia.php">
+          <i class="text-center bi bi-plus-lg" ></i>
+        </a>
+        <a class="btn btn-primary w-100" href="painellistanoticia.php">
+          <i class="text-center bi bi-wallet " ></i>
+        </a>
+
+
+        <div class="w-25 d-flex flex-column flex-shrink-0 offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="margin-top: 88px; background-color: RGBA( 0, 0, 205, 1 ); ">
+                <a class="btn ps-4 text-light text-start w-100">
+                  <i class="bi bi-list" ></i>
                 </a>
-              </li>
-              <li>
-                <a href="painellistanoticia.php" class="nav-link active">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                  Listar Noticias
-                </a>
-              </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-              <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'img/logo.png') this.src = 'img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong><?php echo $_SESSION['nome']; ?></strong>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                <li><a class="dropdown-item" href="editar_perfil.php">Settings</a></li>
-                <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="logout.php">Sair</a></li>
-              </ul>
-            </div>
-          </div> <!-- fim do side bar -->
-      </div> <!-- fim do col-3 -->
-        <div class="col-lg-9 pe-5 table-responsive ">
-            <h2 class="text-center mt-3 mb-3">Card de resumo</h2>
-            <div class="row">
-              <div class="">
-
-              </div>
-            </div>
-            <table class="table table-bordered align-middle border border-4 ">
+                <hr>
+                <ul class="text-start nav nav-pills flex-column mb-auto">
+                  <li class="nav-item">
+                    <a href="paineladdnoticia.php" class="nav-link text-white" aria-current="page">
+                    <i class="text-center bi bi-plus-lg" ></i>
+                      Adicionar Noticias
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="painellistanoticia.php" class="nav-link active">
+                    <i class="text-center bi bi-wallet" ></i>
+                      Listar Noticias
+                    </a>
+                  </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-3">
+                  <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'assets/img/logo.png') this.src = 'assets/img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong><?php echo $_SESSION['nome']; ?></strong>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="editar_perfil.php">Settings</a></li>
+                    <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="logout.php">Sair</a></li>
+                  </ul>
+                </div> <!-- fim do dropdown -->
+        </div> <!-- fim do side bar -->
+      </div> <!-- fim do col-2 -->
+      <div class="col-10 col-sm-11">
+      <div class="min-vh-100" >
+            <h2 class="text-center mt-3" > Cards Inicio </h2>
+            <div class="" >
+              <table class="table">
               <thead>
-                <th scope="col">Preview</th>
-                <th scope="col">Nome da imagem</th>
-                <th scope="col">Titulo da noticia</th>
-                <th scope="col">Conteudo da noticia</th>
-                <th scope="col">data de envio</th>
-                <th scope="col">Manuntenção</th>
-              </thead>
-              <tbody>
-                <?php 
-                  while($titulos = $sql_query->fetch_assoc()){
-                    
-                    
-          
-
-                ?>
-                <tr >
-                  <td class="col" > <img height="50" src="<?php echo $titulos['caminho_imagem']; ?>" alt=""> </td>
-                  <td class="col"> <a target="_blank" href="<?php echo $titulos['caminho_imagem']; ?>"><?php echo $titulos['nome_imagem']; ?></a></td>
-                  <td class="col"> <?php echo $titulos['titulo'] ?></td>
-                  <td class="col"> <?php echo $titulos['conteudo'] ?> </td>
-                  <td class="col"> <?php echo date("d/m/Y H:i", strtotime($titulos['data_upload'])); ?> </td>
-                  <td class="col"> <a href="editar_noticia.php?id=<?php echo $titulos['id']; ?>">Editar</a> | <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          Excluir
-                        </a>  
-
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Alerta de Exclusão</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                Tem certeza que deseja excluir a noticia??
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <a class="btn btn-primary" href="excluir_noticia.php?id=<?php echo $titulos['id']; ?>">Excluir</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-              
-                  </td>
-                </tr>
-                <?php
-
-                
-              }
-                ?>
-              </tbody>
-            </table>
-
-            <h2 class="text-center mb-3"> Noticia principal </h2>
-
-            <table class="table table-bordered border border-4 ">
-              <thead>
-                <th scope="col">Preview</th>
-                <th scope="col">Nome da imagem principal</th>
-                <th scope="col">Titulo da noticia principal</th>
-                <th scope="col">Conteudo da noticia principal</th>
-                <th scope="col">data de envio</th>
-                <th scope="col">Manuntenção</th>
-              </thead>
-              <tbody>
-
-              <?php 
-                  $sql_query2 = $conexao->query("SELECT * FROM noticias ") or die($conexao->error);
-                  while($titulos2 = $sql_query2->fetch_assoc()){
-                    
-                    
-          
-
-                ?>
-                    
-          
-
                 <tr>
-                  <td> <img height="50" src="<?php echo $titulos2['caminho_imagem_principal']; ?>" alt=""> </td>
-                  <td> <a target="_blank" href="<?php echo $titulos2['caminho_imagem_principal']; ?>"><?php echo $titulos2['nome_imagem_principal']; ?></a></td>
-                  <td> <?php echo $titulos2['titulo_principal'] ?></td>
-                  <td> <?php echo $titulos2['conteudo_principal'] ?> </td>
-                  <td> <?php echo date("d/m/Y H:i", strtotime($titulos2['data_upload'])); ?> </td>
-                  <td> <a href="editar_noticia.php?id=<?php echo $titulos['id']; ?>">Editar</a> | <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          Excluir
-                        </a>  
+                  <th scope="col">Preview</th>
+                  <th scope="col">Titulo</th>
+                  <th scope="col">Ver noticia Completa</th>
+                  <th scope="col">Gerenciar</th>
+                </tr>
+              </thead>
+                <tbody>
+                  <?php
+                  $query = $pdo->prepare("SELECT * FROM noticias");
+                  $query -> execute();
 
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Alerta de Exclusão</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                Tem certeza que deseja excluir a noticia??
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <a class="btn btn-primary" href="excluir_noticia.php?id=<?php echo $titulos2['id']; ?>">Excluir</a>
+                  while($noticias = $query->fetch(PDO::FETCH_ASSOC)){
+
+                  ?>
+                    <tr>
+                        <td><img width="100" height="100" src="<?php echo $noticias['imagem_destaque'] ?>" alt=""></td>
+                        <td><?php echo $noticias['titulo'] ?></td>
+                        <td>
+                          <a class="btn btn-secondary" href="" type="button" data-bs-toggle="modal2" data-bs-target="#exampleModal2">Ver noticia</a>
+                        </td>
+                        <td>
+                          <a class="btn btn-secondary" href="">Editar</a> 
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?php echo $noticias['id'] ?>">Excluir</button>
+                        </td>
+                    </tr>                                    
+                    <?php  
+                  } 
+                    ?>
+                </tbody>
+              </table>    
+              
+                                          
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir a noticia?</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body ">
+                                  Você tem certeza que deseja excluir a noticia?
+                                    <input name="id" type="hidden">
+
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                  <a id="excluir" href="" type="button" class="btn btn-danger">Excluir</a>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
+                          </div> <!-- fim do modal -->    
 
-              
-                  </td>
-                </tr>
+                        <script>
+                          const exampleModal = document.getElementById('exampleModal')
+                          exampleModal.addEventListener('show.bs.modal', event => {
+                            // Button that triggered the modal
+                            const button = event.relatedTarget
+                            // Extract info from data-bs-* attributes
+                            const recipient = button.getAttribute('data-bs-whatever')
 
-                
-                <?php 
-                  }
-                    
-                    
-          
+                            // If necessary, you could initiate an AJAX request here
+                            // and then do the updating in a callback.
+                            //
+                            // Update the modal's content.
+                            const modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-                ?>
+                            modalBodyInput.value = recipient
 
+                            const href = 'deletar_noticia.php?id='+ recipient
+
+                            const modalFootera = document.querySelector("#excluir");
+                            modalFootera.href = href
+
+                          
+
+                          })
+                        </script>
+            </div>                  
+          </div>
             
-              </tbody>
-            </table>
-      </div> <!-- fim da col-9 -->
-    </div> <!-- fim da row -->
+        
+      </div><!-- Fim col-11 -->
+    </div> <!-- fim do row -->
     
-
   
 
   </main>
 
 
-  <script src="style/bootstrap/js/bootstrap.bundle.min.js" ></script>
+  <script src="assets/style/bootstrap/js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>

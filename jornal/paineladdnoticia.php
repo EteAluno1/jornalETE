@@ -15,11 +15,11 @@ $usuarios = $sql_query->fetch_assoc();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
-    <link href="efeitos.css" rel="stylesheet">
+    <link href="assets/style/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="assets/style/addnoticia.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <script src="assets/tinymce/js/tinymce/tinymce.min.js"></script>
-    <script src="js/pt_BR.js"></script>
+    <script src="assets/js/pt_BR.js"></script>
     <title>Painel</title>
 
 </head>
@@ -27,11 +27,11 @@ $usuarios = $sql_query->fetch_assoc();
   <header class="border border-bottom border-primary">
     <nav class="navbar navbar-expand-md">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.php"><img src="img/logoo.png" width="90px" height="60px" alt=""></a>
+        <a class="navbar-brand" href="index.php"><img src="assets/img/logoo.png" width="90px" height="60px" alt=""></a>
       </div>
       <div class="dropdown me-3">
                   <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'img/logo.png') this.src = 'img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'assets/img/logo.png') this.src = 'assets/img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
                     <strong><?php echo $_SESSION['nome']; ?></strong>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
@@ -45,12 +45,12 @@ $usuarios = $sql_query->fetch_assoc();
   </header>
   <main class="container-bg">
     <div class="row">
-      <div class="col-2 col-sm-1 g-0 text-center" style="background: rgb(103,61,255); background: linear-gradient(0deg, rgba(103,61,255,1) 38%, rgba(0,206,209,1) 100%); );" >
+      <div class="col-2 col-sm-1 g-0 text-center" style="background: rgb(103,61,255); background: linear-gradient(0deg, RGBA( 0, 0, 205, 1 ) 10%, rgba(0,206,209,1) 100%); );" >
         <a id="btn" class="btn w-100" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
           <i class="text-center bi bi-list" ></i>
         </a>
         <hr>
-        <a class="btn w-100" href="#">
+        <a class="btn btn-primary w-100 " href="#">
           <i class="text-center bi bi-plus-lg" ></i>
         </a>
         <a class="btn w-100" href="painellistanoticia.php">
@@ -58,7 +58,7 @@ $usuarios = $sql_query->fetch_assoc();
         </a>
 
 
-        <div class="w-25 d-flex flex-column flex-shrink-0 offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="margin-top: 88px; background-color: #4917ff; ">
+        <div class="w-25 d-flex flex-column flex-shrink-0 offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="margin-top: 88px;  background-color: RGBA( 0, 0, 205, 1 ); ">
                 <a class="btn ps-4 text-light text-start w-100">
                   <i class="bi bi-list" ></i>
                 </a>
@@ -80,7 +80,7 @@ $usuarios = $sql_query->fetch_assoc();
                 <hr>
                 <div class="dropdown pb-3">
                   <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'img/logo.png') this.src = 'img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'assets/img/logo.png') this.src = 'assets/img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
                     <strong><?php echo $_SESSION['nome']; ?></strong>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
@@ -94,37 +94,75 @@ $usuarios = $sql_query->fetch_assoc();
       </div> <!-- fim do col-1 -->
       <div class="col-10 col-sm-11">
           <div class="" >
-            <h2 class="text-center mt-3" > Card Inicio </h2>
+            
             <form method="POST" enctype="multipart/form-data" class="row g-3 mb-3 mt-3">
                 
-                <div class="col-md-12">
+                <div class="col-md-9 shadow">
+                  <h2 class="text-center mt-3"  title="Titulo que aparecerá no resumo na parte inicial do site!!" > Titulo Principal da Noticia</h2>
+                  <input name="titulo" class="form-control mb-4" type="text">
+                  <h2 class="text-center mt-3"  title="Conteudo que aparecerá na pagina de noticias!!" > Corpo da noticia </h2>
                   <textarea name="card_resumo" id=""></textarea>
                 </div>
-                
-                <h2 class="text-center"> Conteudo Principal </h2>
-
-                <div class="col-md-12">
-                  <textarea name="card_principal" id=""></textarea>
+                <div class="col-md-3" >
+                    <div class="rounded mt-5 p-4 shadow" >
+                        <h4 class="text-center" >Imagem Destaque</h4>
+                        <div class="text-center mb-3" >
+                          <img id="output" width="150" height="150" src="" alt="">
+                          <script>
+                            var loadFile = function(event) {
+                              var output = document.getElementById('output');
+                              output.src = URL.createObjectURL(event.target.files[0]);
+                              output.onload = function() {
+                                URL.revokeObjectURL(output.src) // free memory
+                              }
+                            };
+                          </script>
+                        </div>
+                        <input name="imagem" id="formFile" onchange="loadFile(event)" class="form-control form-control-sm" type="file">
+                    </div>
                 </div>
-                <div class="col-12">
+    
+                <div class="col-9">
                   <button name="upload" class="btn btn-primary" type="submit">Enviar</button>
                 </div>
+                
             </form>
 
             <?php
               if(isset($_POST['upload'])):
+                $pega_titulo = filter_input(INPUT_POST,'titulo',FILTER_DEFAULT);
                 $pega_tiny = filter_input(INPUT_POST,'card_resumo',FILTER_DEFAULT);
-                $pega_tiny2 = filter_input(INPUT_POST,'card_principal',FILTER_DEFAULT);
                 $categoria = "variados";  
+                $arquivo = $_FILES['imagem'];
 
-                $insert = $pdo->prepare("INSERT INTO noticias (card_noticia,noticia_principal,data_upload,categoria) VALUES (:textN,:textP,now(),:categoria)");
+                if($arquivo['error'] )
+                    die("<p class='alert alert-danger w-50 mt-3'> Falha ao enviar o arquivo !! </p>");
+                if($arquivo['size'] > 5097152){
+                  die("<p class='alert alert-danger w-50 mt-3'> Arquivo muito grande !! Max: 5MB !!</p>");
+                }
+                $pasta = "arquivos/";
+                $nomeDoArquivo = $arquivo['name'];
+                $novoNomeDoArquivo = uniqid();
+                $extensao = strtolower(pathinfo($nomeDoArquivo,PATHINFO_EXTENSION));
+
+                if($extensao != "jpg" && $extensao != "png")
+                    die("<p class='alert alert-danger w-50 mt-3'>Formato de imagem nao aceito !! Apenas PNG ou JPG !! </p> ");
+
+                $caminho = $pasta . $novoNomeDoArquivo . "." . $extensao;  
+
+                $deu_certo = move_uploaded_file($arquivo["tmp_name"], $caminho);
+
+
+
+                $insert = $pdo->prepare("INSERT INTO noticias (titulo,card_noticia,imagem_destaque,data_upload,categoria) VALUES (:textT,:textN,:img,now(),:categoria)");
+                $insert -> bindValue(':textT',$pega_titulo);
                 $insert -> bindValue(':textN', $pega_tiny);
-                $insert -> bindValue(':textP', $pega_tiny2);
+                $insert -> bindValue(':img', $caminho);
                 $insert -> bindValue(':categoria', $categoria);
                 $insert -> execute();
                 
                 if($insert){
-                  echo "<p class='alert alert-success w-25 mt-3'>Noticia cadastrada! </p>";
+                  echo "<script> alert('Noticia postada !!')</script>";
                 }else
                   echo 'errorrrrr';
               endif;
@@ -193,6 +231,6 @@ $usuarios = $sql_query->fetch_assoc();
     });
  
   </script>             
-  <script src="style/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/style/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
