@@ -24,7 +24,7 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background: url(img/background.jpg);
+  background: url(assets/img/background.jpg);
   background-size: 100%;
   
 }
@@ -98,7 +98,7 @@ main{
     
     <main class="form-signin w-100 m-auto rounded">
         <form action="cadastrar.php" method="POST">
-          <img class="mb-3" src="img/logoo.png" alt="logo-jete" >
+          <img class="mb-3" src="assets/img/logoo.png" alt="logo-jete" >
           <h1 class="h3 mb-3 fw-normal">Cadastro</h1>
 
           <div class="form-floating">

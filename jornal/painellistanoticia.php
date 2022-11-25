@@ -29,6 +29,18 @@ $usuarios = $sql_query_usuarios->fetch_assoc();
       <div class="container-fluid">
         <a class="navbar-brand" href="index.php"><img src="assets/img/logoo.png" width="90px" height="60px" alt=""></a>
       </div>
+      <div class="dropdown me-3">
+                  <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'assets/img/logo.png') this.src = 'assets/img/slide1.jpg';" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong><?php echo $_SESSION['nome']; ?></strong>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="editar_perfil.php">Settings</a></li>
+                    <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="logout.php">Sair</a></li>
+                  </ul>
+      </div> <!-- fim do dropdown -->
     </nav> 
   </header>
   <main class="container-bg">
@@ -105,7 +117,7 @@ $usuarios = $sql_query_usuarios->fetch_assoc();
                         <td><img width="100" height="100" src="<?php echo $noticias['imagem_destaque'] ?>" alt=""></td>
                         <td><?php echo $noticias['titulo'] ?></td>
                         <td>
-                          <a class="btn btn-secondary" href="" type="button" data-bs-toggle="modal2" data-bs-target="#exampleModal2">Ver noticia</a>
+                          <a class="btn btn-secondary" href="" type="button" data-bs-toggle="modal" data-bs-target="#vernoticia">Ver noticia</a>
                         </td>
                         <td>
                           <a class="btn btn-secondary" href="">Editar</a> 
@@ -119,8 +131,8 @@ $usuarios = $sql_query_usuarios->fetch_assoc();
               </table>    
               
                                           
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal -->
+                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -140,6 +152,27 @@ $usuarios = $sql_query_usuarios->fetch_assoc();
                               </div>
                             </div>
                           </div> <!-- fim do modal -->    
+
+                          <!-- Modal ver noticia -->
+                         <div class="modal fade" id="vernoticia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Titulo da Noticia</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body ">
+                                  noticia
+                                    <input name="id" type="hidden">
+
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div> <!-- fim do modal -->   
 
                         <script>
                           const exampleModal = document.getElementById('exampleModal')

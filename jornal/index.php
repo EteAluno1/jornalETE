@@ -18,11 +18,13 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
     <link rel="stylesheet" href="assets/style/cardequipe.css">
     <link rel="stylesheet" href="assets/style/cardindex.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/owlcarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/owlcarousel/assets/owl.theme.default.min.css">
 
 
-
-
-
+    <script src="assets/vendors/jquery.min.js"></script>
+    <script src="assets/owlcarousel/owl.carousel.js"></script>
+  
 
 
 
@@ -31,115 +33,507 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
 
-    <style>
+ <style>
+  
+
+    *
+    {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    h5
+    {
+      margin:0px;
+      font-size:1.4em;
+      font-weight:700;
+    }
+
+    p
+    {
+      font-size:12px;
+    }
+
+    .center
+    {
+      width:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* End Non-Essential  */
+
+    .property-card
+    {
+      height:18em;
+      width:14em;
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-orient:vertical;
+      -webkit-box-direction:normal;
+      -ms-flex-direction:column;
+      flex-direction:column;
+      position:relative;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      border-radius:16px;
+      overflow:hidden;
+      -webkit-box-shadow:  15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
+      box-shadow:  15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
+    }
+    /* ^-- The margin bottom is necessary for the drop shadow otherwise it gets clipped in certain cases. */
+
+    /* Top Half of card, image. */
+
+    .property-image
+    {
+      height:10em;
+      width:14em;
+      padding:1em 2em;
+      position:Absolute;
+      top:0px;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    }
+
+    /* Bottom Card Section */
+
+    .property-description
+    {
+      background-color: #FAFAFC;
+      height:6em;
+      width:14em;
+      position:absolute;
+      bottom:0em;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      padding: 0.5em 1em;
+      text-align:center;
+    }
+
+    /* Social Icons */
+
+    .property-social-icons
+    {
+      width:1em;
+      height:1em;
+      background-color:black;
+      position:absolute;
+      bottom:1em;
+      left:1em;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    /* Property Cards Hover States */
+
+    .property-card:hover .property-description
+    {
+      height:0em;
+      padding:0px 1em;
+    }
+    .property-card:hover .property-image
+    {
+      height:18em;
+    }
+
+    .property-card:hover .property-social-icons
+    {
+      background-color:white;
+    }
+
+    .property-card:hover .property-social-icons:hover
+    {
+      background-color:blue;
+      cursor:pointer;
+    }
+
+
+    /* Optional
+
+    .property-image-title
+    {
+    text-align:center;
+    position:Relative;
+    top:30%;
+    opacity:0;
+    transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+    color:black;
+    font-size:1.2em;
+    }
+
+    .property-card:hover .property-image-title
+    {
+    opacity:1;
+    }
+
+    */
+ </style>
+ <style>
+  body{	
+	text-align:center;
+	font-family: "Open Sans", sans-serif; 
+    }
+    #view-code{
+      color:#82b4eb;      
+      font-size:14px;
+      text-transform:uppercase;
+      font-weight:700;
+      text-decoration:none;
+      position:absolute;top:620px;
+      left:50%;margin-left:-30px;
+      z-index:200;
+    }
+    #view-code:hover{color:#fff}
+    #window{
+      margin:45px auto 0;
+      border-radius:6px;
+      background:#234871;
+      width:678px;
+      height:549px;	
+      overflow:hidden;
+      position:relative;
+    }
+    #header{
+      background:#82b4eb;
+      height:33px;
+      padding-left:18px;
+    }
+    #header .circle{
+      background:#689cd4;
+      border-radius:50%;
+      float:left;
+      width:12px;
+      height:12px;
+      margin-right:6px;
+      margin-top:11px;
+    }
+
+    .thumbs{display:none;}
+    .thumb, .thumb p{  
+      width: 226px;
+      height: 172px;
+      float: left;
+      margin:0;  
+      background: #e3e5e9;
+    }
+    #cloneWrap{
+      width: 270px;
+      height: 210px;
+      position:absolute;
+      top:0;
+      left:0;
+      border:none;
+    }
+    #cloneWrap p{position:static; width:100%; height:100%}
+    .floatingThumb{
+      width: 226px;
+      height: 172px;
+    }
+    .thumb:hover{cursor:pointer;}
+    .thumb p{
+      position:relative;
+      top:0;
+      left:0;
+      -webkit-transition: all 80ms ease-out;
+          -moz-transition: all 80ms ease-out;
+            -ms-transition: all 80ms ease-out;
+            -o-transition: all 80ms ease-out;
+                transition: all 80ms ease-out;
+    }
+    .thumb p.expand{
+      background:#fff;
+      width:270px;
+      height:210px;	
+      z-index:300;
+      -webkit-transition: all 80ms ease-out;
+          -moz-transition: all 80ms ease-out;
+            -ms-transition: all 80ms ease-out;
+            -o-transition: all 80ms ease-out;
+                transition: all 80ms ease-out;
+    }
+
+    .thumb p.eq0, .slide.eq0{background:#4773a3}
+    .thumb p.expand.eq0{top:0;left:0;}
+    .thumb p.eq1, .slide.eq1{background:#fff}
+    .thumb p.expand.eq1{top:0;left:-20px;}
+    .thumb p.eq2, .slide.eq2{background:#cde9e3}
+    .thumb p.expand.eq2{top:0;left:-40px;}
+    .thumb p.eq3, .slide.eq3{background:#2f5885}
+    .thumb p.expand.eq3{top:-20px;left:0;}
+    .thumb p.eq4, .slide.eq4{background:#f0f7ff}
+    .thumb p.expand.eq4{top:-20px;left:-20px;}
+    .thumb p.eq5, .slide.eq5{background:#f28f8a}
+    .thumb p.expand.eq5{top:-20px;left:-40px;}
+    .thumb p.eq6, .slide.eq6{background:#6b9acd}
+    .thumb p.expand.eq6{top:-38px;left:0;}
+    .thumb p.eq7, .slide.eq7{background:#4773a3}
+    .thumb p.expand.eq7{top:-38px;left:-20px;}
+    .thumb p.eq8, .slide.eq8{background:#6b9acd}
+    .thumb p.expand.eq8{top:-38px;left:-40px;}
+
+
+
+    .thumb span{
+      width:160px;
+      position:absolute;
+      bottom:45px;
+      left:30px;
+      border-radius:2px;
+      height:7px;
+      background:#fff;
+      display:block;
+    }
+    .thumb span:nth-of-type(2){bottom:30px; width:150px;}
+    #bootstrap-carousel{
+      display:none;
+      width: 778px;
+      height: 516px;
+      position: absolute;
+      top: 33px;
+      left: 0;
+      overflow-y: scroll;
+      overflow-x: hidden;
       
-  .container2 {
-    height: 300px;
-    width: 600px;
-    display: flex;
-  }
-  .card2 {
-    display: flex;
-    height: 280px;
-    width: 200px;
-    background-color: #160079;
-    border-radius: 10px;
-    box-shadow: -1rem 0 3rem #160079b2;
-  /*   margin-left: -50px; #17141d */
-    transition: 0.4s ease-out;
-    position: relative;
-    left: 0px;
-  }
+    }
+    .slide.firstSlide{
+        width: 576px;
+      height: 411px;
+      margin: 105px 0 0 50px;
+    background:#4773a3; 
+      opacity:0;
+    }
+    .slide.firstSlide.animate{
+      width: 678px;
+      height: 516px;
+      margin:0; 
+      opacity:1;
+      -webkit-transition: all 200ms ease-out;
+          -moz-transition: all 200ms ease-out;
+            -ms-transition: all 200ms ease-out;
+            -o-transition: all 200ms ease-out;
+                transition: all 200ms ease-out;
+    }
+    .slide{
+      width: 678px;
+        height: 516px;
+    }
+    .slide strong, .slide span{
+      height:18px;
+      background:#6b9acd;
+      border-radius:3px;
+      display:block;	
+      margin-bottom:30px;
+    }
+    .slide span{height:12px;margin-bottom:15px;}
+    .slide span:nth-of-type(3){width:150px;}
+    .slide p{float:left; width:280px;margin:190px 0 0 60px;opacity:0;}
+    .slide path{ fill:#6b9acd;}
+    .slide svg{opacity:0;}
+
+    .slide.eq0 svg{margin:110px 0 0 0; opacity:1;}
+    .slide.eq0 p{margin:194px 0 0 56px; opacity:1;}
+
+
+    .thumb p.eq0 span{background:#6b9acd;}
+    .thumb p.eq1 span{background:#d4e2f0;}
+    .thumb p.eq2 span{background:#7aaec3;}
+    .thumb p.eq3 span{background:#27496d;}
+    .thumb p.eq4 span{background:#7aa3d2;}
+    .thumb p.eq5 span{background:#fff;}
+    .thumb p.eq6 span{background:#8fb6e3;}
+
+    .slide.eq1 path, .slide.eq1 strong, .slide.eq1 span{fill:#d4e2f0; background:#d4e2f0;}
+    .slide.eq1 p{float:left; width:280px;margin:150px 0 0 60px; opacity:0;}
+    .slide.eq1 svg{margin:180px 0 0 0; opacity:0;}
+
+    .slide.eq2 p{float:right; width:280px;margin:190px 20px 0 0 ; }
+    .slide.eq2 path, .slide.eq2 strong, .slide.eq2 span{fill:#7aaec3; background:#7aaec3;}
+    .slide.eq2 svg{float: left; margin-left: 40px;}
+
+    .slide.eq3 p{float:left; width:280px;margin:110px 0 0 60px; }
+    .slide.eq3 path, .slide.eq3 strong, .slide.eq3 span{fill:#27496d; background:#27496d;}
+
+    .slide.eq4 path{fill:#7aa3d2;}
+    .slide.eq4 svg{margin:45px 0 0 13px;float:left;}
+    .slide.eq4 svg:nth-of-type(1){margin-left:35px;}
+    .slide.eq4 svg:nth-of-type(2){margin-top:319px;}
+
+    .slide.eq5 p{float:left; width:280px;margin:190px 0 0 60px; }
+    .slide.eq5 path, .slide.eq5 strong, .slide.eq5 span{fill:#fff; background:#fff;}
+
+    .slide.eq6 p{float:left; width:280px;margin:190px 0 0 60px; }
+    .slide.eq6 path, .slide.eq6 strong, .slide.eq6 span{fill:#cde9e3; background:#cde9e3;}
+
+    .slide.eq6 p{float:left; width:480px;margin:-100px 0 0 60px; }
+    .slide.eq6 path, .slide.eq6 strong, .slide.eq6 span{fill:#8fb6e3; background:#8fb6e3;}
+
+    #espose{
+      position:absolute;
+      bottom:20px;
+      right:20px;
+      width:26px;
+      height:26px;	
+      cursor:pointer;
+      z-index:500;
+      display:none;
+    }
+    #espose p{
+      border: 2px solid #8fb6e3;
+      width: 6px;
+      height: 6px;
+      margin: 0 3px 3px 0;
+      float:left;
+    }
+
+    #loader{
+      position:absolute;
+      width:45px;
+      height:30px;
+      top:280px;
+      left:50%;
+      margin-left:-25px;
+      display:none;
+    }
+    #loader .circle{
+      background:#82b4eb;
+      border-radius: 50%;  
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      position:absolute;
+      left:0;
+      top:0;
+    }
+    #loader .c1{
+      top:6px;
+      left:6px;
+      width:0;
+      height:0;
+    }
+    #loader.animate .c1{
+      top:0;
+      left:0;
+      width:12px;
+      height:12px;
+    }
+
+    #loader.animate .c2{left:15px;}
+    #loader .circle.c3{left:15px;}
+    #loader.animate .c3{left:30px;}
+    #loader .c4{left:30px;}
+    #loader.animate .c4{
+      left:29px;
+      top:6px;
+      width:0;
+      height:0;
+    }
+    #loader.animate .circle{
+    -webkit-transition: all 400ms ease-out;
+        -moz-transition: all 400ms ease-out;
+        -ms-transition: all 400ms ease-out;
+        -o-transition: all 400ms ease-out;
+          transition: all 400ms ease-out;
+    }
+ </style>
+
+
+<style>
   
-  .card2:not(:first-child) {
-      margin-left: -50px;
+.container3 {
+  max-width: 800px;
+  margin: 5% auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+}
+
+.text-center {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.lightbox-gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.lightbox-gallery div > img {
+  max-width: 100%;
+  display: block;
+}
+
+.lightbox-gallery div {
+  margin: 10px;
+  flex-basis: 180px;
+}
+
+@media only screen and (max-width: 480px) {
+  .lightbox-gallery {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .card2:hover {
-    transform: translateY(-20px);
-    transition: 0.4s ease-out;
+
+  .lightbox > div {
+    margin-bottom: 10px;
   }
-  
-  .card2:hover ~ .card2 {
-    position: relative;
-    left: 50px;
-    transition: 0.4s ease-out;
-  }
-  
-  .title2 {
-    color: white;
-    font-weight: 300;
-    position: absolute;
-    left: 20px;
-    top: 15px;
-  }
-  .title3 {
-    color: white;
-    font-weight: 300;
-    position: absolute;
-    left: 20px;
-    top: 50px;
-  }
-  
-  .bar2 {
-    position: absolute;
-    top: 100px;
-    left: 20px;
-    height: 5px;
-    width: 150px;
-  }
-  
-  .emptybar2 {
-    background-color: #2e3033;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .filledbar2 {
-    position: absolute;
-    top: 0px;
-    z-index: 3;
-    width: 0px;
-    height: 100%;
-    background: rgb(0,154,217);
-    background: linear-gradient(90deg, rgb(255, 251, 0) 0%, rgb(1, 255, 13) 50%, rgb(255, 0, 0) 100%);
-    transition: 0.6s ease-out;
-  }
-  
-  .card2:hover .filledbar2 {
-    width: 153px;
-    transition: 0.4s ease-out;
-  }
-  
-  .circle2 {
-    position: absolute;
-    top: 150px;
-    left: calc(50% - 60px);
-  }
-  
-  .stroke2 {
-    stroke: yellow;
-    stroke-dasharray: 360;
-    stroke-dashoffset: 360;
-    transition: 0.6s ease-out;
-  }
-  
-  svg {
-    fill: #17141d;
-    stroke-width: 2px;
-  }
-  
-  .card2:hover .stroke2 {
-    stroke-dashoffset: 100;
-    transition: 0.6s ease-out;
-  }
-  .img{
-    position: absolute;
-    z-index: 2;
-    left: 13px;
-    top: 10px;
-  }
-    </style>
+}
+
+/*Lighbox CSS*/
+
+.lightbox {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  padding-top: 30px;
+  box-sizing: border-box;
+}
+
+.lightbox img {
+  display: block;
+  margin: auto;
+}
+
+.lightbox .caption {
+  margin: 15px auto;
+  width: 50%;
+  text-align: center;
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #eee;
+}
+
+.github-link {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.github-link:hover,
+.github-link:active,
+.github-link:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+</style>
   </head>
   <body>
 <div class="container">
@@ -188,35 +582,57 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
   <h1 class="text-center mb-4">Equipe</h1>
 
 
-  <div class="container2 ms-4"> 
+  <div class="container2 ms-4 d-flex"> 
+  <div class="owl-carousel">
           <?php
             while($usuarios = $sql_query->fetch_assoc()){
           ?>
-            <div class="text-center me-3">
-              <div class="card2">
-                <h3 class="title2"><?php echo $usuarios['nome'] ?></h3>
-                <p class="title3" ><?php echo $usuarios['descricao'] ?></p>
-                <div class="bar2">
-                  <div class="emptybar2"></div>
-                  <div class="filledbar2"></div>
-                </div>
-                <div class="circle2">
-                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="stroke2" cx="60" cy="60" r="50"/>
-                  </svg>
-                  <img class="bd-placeholder-img rounded-circle img" width="100" height="100" src="<?php echo $usuarios['caminho_imagem_perfil']?>" onerror="if (this.src != 'assets/img/logo.png') this.src = 'assets/img/slide1.jpg';" alt="">
+           
+          
+         
+            <div class="item">
+              <div class="center">
+                <div class="property-card">
+                  <a href="#">
+                    <div class="property-image" style="background-image:url('<?php echo $usuarios['caminho_imagem_perfil'] ?> '), url(assets/img/slide1.jpg);background-size:cover; background-repeat:no-repeat;">
+                      <div class="property-image-title">
+                        <!-- Optional <h5>Card Title</h5> If you want it, turn on the CSS also. -->
+                      </div>
+                    </div></a>
+                  <div class="property-description">
+                    <h5><?php echo $usuarios['nome'] ?></h5>
+                    <p><?php echo $usuarios['descricao'] ?></p>
+                  </div>
                 </div>
               </div>
-            </div><!-- /.col-lg-4 -->
-
-
-
+            </div>
+          
       
             <?php
             }
-            ?>       
+            ?> 
+  </div>
+  <script>
+      var owl = $('.owl-carousel');
+      owl.owlCarousel({
+        margin: 10,
+        loop: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          600: {
+            items: 2
+          },
+          1000: {
+            items: 3
+          }
+        }
+      })
+    </script>
   </div>
             
+  
 
   <div class="row mb-2">
 
@@ -264,10 +680,502 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
 </main>
   <footer class="container bg-light rounded-bottom">
     <div class="row g-5">
+      <h1 class="text-center" >Conheça a ETE</h1>
       <div class="col-md-8">
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+
+    <!--  <div id="window">
+        <div id="header">
+            <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+          </div>       
+                
+          <div class="thumbs">    
+            <div class="thumb">
+              <p>
+                    <span></span>
+                  <span></span>
+                  </p>
+              </div>
+              <div class="thumb">
+                <p>
+                    <span></span>
+                  <span></span>
+                  </p>
+              </div>
+              <div class="thumb">
+                <p>
+                    <span></span>
+                  <span></span>
+                  </p>
+              </div>
+              <div class="thumb">
+                <p>
+                    <span></span>
+                  <span></span>
+                  </p>
+              </div>
+              <div class="thumb">
+                <p>
+                    <span></span>
+                  <span></span>
+                  </p>
+              </div>
+              <div class="thumb">
+                    <p>
+                    <span></span>
+                    <span></span>
+                  </p>
+              </div>
+              <div class="thumb">
+                  <p>
+                    <span></span>
+                  <span></span>
+                  </p>
+              </div>
+                  
+          </div>
+          
+          <div id="bootstrap-carousel">
+              <div class="slides">                                            
+                
+                  <div class="slide">                         
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="253.5px" height="279.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+                      <g>
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>
+                      </g>
+                      </svg>                 
+                      <p>
+                        <strong></strong>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </p>                    	                 	
+                  </div>
+                  
+                  <div class="slide">  
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="253.5px" height="279.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+                      <g>
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>
+                      </g>
+                      </svg> 
+                      
+                      <p>
+                        <strong></strong>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </p>
+                            
+                  </div>
+                  <div class="slide">                         
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="253.5px" height="279.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+                      <g>
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>
+                      </g>
+                      </svg>                 
+                      <p>
+                        <strong></strong>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </p>                    	                 	
+                  </div>
+                  
+                  <div class="slide">  
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="253.5px" height="279.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+                      <g>
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>
+                      </g>
+                      </svg> 
+                      
+                      <p>
+                        <strong></strong>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </p>
+                            
+                  </div>
+                  
+                  <div class="slide">  
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="193.5px" height="179.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>                    
+                      </svg>
+                      
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="193.5px" height="179.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>                    
+                      </svg>
+                      
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="193.5px" height="179.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>                    
+                      </svg> 
+                
+                  </div>
+                  
+                  <div class="slide">                         
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="253.5px" height="279.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+                      <g>
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>
+                      </g>
+                      </svg>                 
+                      <p>
+                        <strong></strong>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </p>                    	                 	
+                  </div>
+                              
+                  <div class="slide">  
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          width="253.5px" height="279.1px"  viewBox="0 0 93.5 79.1" style="enable-background:new 0 0 93.5 79.1;" xml:space="preserve">
+                      <g>
+                          <path d="M87.8,60.2V9.8c0-2.6-2.1-4.7-4.7-4.7H9.8c-2.6,0-4.7,2.1-4.7,4.7v61.1c0,2.6,2.1,4.7,4.7,4.7h73.3
+                              c2.6,0,4.7-2.1,4.7-4.7v-9.3C88,61.1,88,60.6,87.8,60.2z M20.6,72H9.8c-0.6,0-1.1-0.5-1.1-1.1V58.3l16.4-16L36,53.6L20.6,71.9
+                              C20.6,71.9,20.6,72,20.6,72z M84.2,70.9c0,0.6-0.5,1.1-1.1,1.1H25.2l33-39.4l26,28.8V70.9z M84.2,56L59.5,28.7
+                              c-0.3-0.4-0.8-0.6-1.3-0.6c0,0,0,0,0,0c-0.5,0-1,0.2-1.3,0.6L38.3,50.8L26.5,38.5c-0.3-0.3-0.8-0.5-1.3-0.6c-0.5,0-0.9,0.2-1.3,0.5
+                              L8.8,53.3V9.8c0-0.6,0.5-1.1,1.1-1.1h73.3c0.6,0,1.1,0.5,1.1,1.1V56z M39.3,17c-4.8,0-8.8,3.9-8.8,8.8c0,4.8,3.9,8.8,8.8,8.8
+                              s8.8-3.9,8.8-8.8C48.1,20.9,44.2,17,39.3,17z M39.3,31c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2c2.9,0,5.2,2.3,5.2,5.2
+                              S42.2,31,39.3,31z"/>
+                      </g>
+                      </svg> 
+                      
+                      <p>
+                        <strong></strong>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </p>
+                            
+                  </div>
+                  
+              </div>
+        </div>    
+          
+          <div id="espose">
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>	
+          </div>
+          
+        <div id="loader">
+          <div class="circle c1"></div>
+          <div class="circle c2"></div>
+          <div class="circle c3"></div>
+          <div class="circle c4"></div>  
+        </div>
+      
+      </div> -->
+
+      <div class="container3">
+        <h2 class="text-center">Galeria</h2>
+        <div class="lightbox-gallery">
+            <div><img src="assets/img/galeria/slide1.jpg" data-image-hd="assets/img/galeria/slide1.jpg" alt="Entrada da escola"></div>
+            <div><img src="assets/img/galeria/auditorio.jpeg" data-image-hd="assets/img/galeria/auditorio.jpeg" alt="auditorio"></div>
+            <div><img src="assets/img/galeria/refeitorio.jpeg" data-image-hd="assets/img/galeria/refeitorio.jpeg" alt="Refeitorio"></div>
+            <div><img src="assets/img/galeria/biblioteca.jpeg" data-image-hd="assets/img/galeria/biblioteca.jpeg" alt="Biblioteca"></div>
+            <div><img src="assets/img/galeria/4.0.jpeg" data-image-hd="assets/img/galeria/4.0.jpeg" alt="Espaço 4.0"></div>
+            <div><img src="assets/img/galeria/lab.jpeg" data-image-hd="assets/img/galeria/lab.jpeg" alt="Laboratorio"></div>
+            <div><img src="assets/img/galeria/quadra.jpeg" data-image-hd="assets/img/galeria/quadra.jpeg" alt="Quadra"></div>
+            <div><img src="assets/img/galeria/sala1.jpeg" data-image-hd="assets/img/galeria/sala1.jpeg" alt="Sala"></div>
+            <div><img src="assets/img/galeria/sala2.jpeg" data-image-hd="assets/img/galeria/sala2.jpeg" alt="Sala"></div>
+        </div>
+      </div>
+<script> 
+
+// Create a lightbox
+(function() {
+  var $lightbox = $("<div class='lightbox'></div>");
+  var $img = $("<img>");
+  var $caption = $("<p class='caption'></p>");
+
+  // Add image and caption to lightbox
+
+  $lightbox
+    .append($img)
+    .append($caption);
+
+  // Add lighbox to document
+
+  $('body').append($lightbox);
+
+  $('.lightbox-gallery img').click(function(e) {
+    e.preventDefault();
+
+    // Get image link and description
+    var src = $(this).attr("data-image-hd");
+    var cap = $(this).attr("alt");
+
+    // Add data to lighbox
+
+    $img.attr('src', src);
+    $caption.text(cap);
+
+    // Show lightbox
+
+    $lightbox.fadeIn('fast');
+
+    $lightbox.click(function() {
+      $lightbox.fadeOut('fast');
+    });
+  });
+
+}());
+</script> <!-- galeria script -->
+
+     
+<script>
+  $(document).ready(function(){
+
+  jQuery.easing.def = "easeOutQuad";	  
+
+  var fullSlides = $('div.slide');
+  var carouselScrollTop = 0;
+  var scrollBy =516; 
+  var isScrolling = 0;
+  $(fullSlides).eq(0).clone().appendTo("#window").addClass('firstSlide');
+
+  var loader = setInterval(function(){
+      $('#loader').fadeIn().addClass('animate');
+      setTimeout(function(){$('#loader').removeClass('animate');}, 400);     
+  }, 500);
+
+  setTimeout(function(){$("#loader").fadeOut();}, 2200);
+
+  setTimeout(function(){     
+    clearInterval(loader);
+    $("#espose").fadeIn();
+    $('.firstSlide').addClass('animate');
+    setTimeout(function(){
+    $("div.firstSlide").eq(0).find('p').animate({'margin-top':'194px', 'margin-left':'56px', 'opacity':'1'});
+        $("div.firstSlide").eq(0).find('svg').animate({'margin-top':'110px', 'opacity':'1'});		
+    }, 300);
+    setTimeout(function(){
+    $("#bootstrap-carousel").show();
+    $("div.firstSlide").hide();
+    }, 700);
+  }, 2500);
+      
+  var carouselHeight = 0;
+  $(fullSlides).each(function(){
+    carouselHeight += scrollBy;
+  });      
+  $('div.slides').css('height', carouselHeight+"px");	
+  $("#bootstrap-carousel").scroll(function() {				
+    
+    
+    if($(this)[0].scrollTop > carouselScrollTop && isScrolling == 0){
+      isScrolling = 1;  
+      carouselScrollTop += scrollBy;        
+        $(this).scrollTo(carouselScrollTop,500);
+      setTimeout(function(){
+          isScrolling = 0;          
+        }, 500);
+    }else if($(this)[0].scrollTop < carouselScrollTop && isScrolling == 0){
+      isScrolling = 1;  
+      carouselScrollTop -= scrollBy;        
+        $(this).scrollTo(carouselScrollTop, 500);
+      setTimeout(function(){
+          isScrolling = 0;          
+        }, 500);
+    }
+    
+    
+    if($(this)[0].scrollTop >= 355 && $(this)[0].scrollTop < 900){						
+      $(fullSlides).eq(1).find('p').animate({'margin-top':'190px', 'opacity':'1'});
+      $(fullSlides).eq(1).find('svg').animate({'margin-top':'110px', 'opacity':'1'});			
+    }
+    
+    if($(this)[0].scrollTop >= 900 && $(this)[0].scrollTop < 1400){												
+      $(fullSlides).eq(2).find('svg').animate({'margin-top':'110px', 'opacity':'1'});
+      $(fullSlides).eq(2).find('p').animate({'margin-right':'60px', 'opacity':'1'});
+      
+    }				
+    
+    if($(this)[0].scrollTop >= 1400 && $(this)[0].scrollTop < 1900){											
+      $(fullSlides).eq(3).find('svg').animate({'margin-top':'110px', 'opacity':'1'});			
+      setTimeout(function(){$(fullSlides).eq(3).find('p').animate({'margin-top':'190px', 'opacity':'1'});}, 100);
+    }
+    
+    if($(this)[0].scrollTop >= 1900 && $(this)[0].scrollTop < 2400){												
+      $(fullSlides).eq(4).find('svg').animate({'margin-top':'152px', 'opacity':'1'});			
+    }
+    
+    if($(this)[0].scrollTop >= 2400 && $(this)[0].scrollTop < 2900){						
+      $(fullSlides).eq(5).find('p').animate({'margin-top':'190px', 'opacity':'1'});
+      $(fullSlides).eq(5).find('svg').animate({'margin-top':'110px', 'opacity':'1'});
+    }
+    
+    if($(this)[0].scrollTop >= 3050 && $(this)[0].scrollTop < 3612){															
+      $(fullSlides).eq(6).find('p').animate({'margin-left':'102px', 'opacity':'1'});
+    }
+    
+    if($(this)[0].scrollTop >= 100 && $(this)[0].scrollTop <= 500){															
+      $("#espose p").css('border-color', '#82b4eb');	
+    }else if($(this)[0].scrollTop >= 500 && $(this)[0].scrollTop <= 900){															
+      $("#espose p").css('border-color', '#7aaec3');	
+    }else if($(this)[0].scrollTop >= 1600 && $(this)[0].scrollTop <= 2100){															
+      $("#espose p").css('border-color', '#82b4eb');	
+    }
+    else if($(this)[0].scrollTop >= 2100 && $(this)[0].scrollTop <= 2600){															
+      $("#espose p").css('border-color', '#fff');	
+    }
+    
+    
+  });
+
+
+
+  $('.thumb p').each(function(index, el){
+    $(this).addClass("eq"+index);
+    $(fullSlides).eq(index).addClass("eq"+index);
+    
+    $(this).click(function(){
+      
+      carouselScrollTop = scrollBy * index;   
+      $(this).find('span').hide();
+      setTimeout(function(){$('.thumb span').show();}, 400);
+      $("#window").append("<div id='cloneWrap' class='thumb'></div>");
+      var childOffset = $(this).offset();
+      var parentOffset = $(this).parent().parent().offset();
+      var childTop = childOffset.top - parentOffset.top;
+      var childLeft = childOffset.left - parentOffset.left;
+      var clone = $(this).clone();
+      var top = childTop+33+"px";		
+      var left = childLeft+"px";			
+      
+      $(clone)
+      .addClass("floatingThumb eq"+index)			
+      .appendTo("#cloneWrap");
+      
+      $("#cloneWrap")
+      .css({'top': top, 'left': left})
+      .animate({'width': '678px', 
+                'height': '516px', 
+            'top': '33px', 
+            'left': '0'}, 250,
+          function(){		
+            
+            var scrolltop = 0;
+            if(index == 0){ sctolltop = 0;}
+            else if(index == 1){ sctolltop = 516;}
+            else if(index == 2){ sctolltop = 1032;}
+            else if(index == 3){ sctolltop = 1548;}
+            else if(index == 4){ sctolltop = 2064;}
+            else if(index == 5){ sctolltop = 2580;}
+            else if(index == 6){ sctolltop = 3096;}												
+            isScrolling = 1;
+            $('#bootstrap-carousel').show().scrollTo(sctolltop,{duration:0});
+            $('#cloneWrap').fadeOut(200, function(){$('#cloneWrap').remove()});	
+            $('.thumbs').hide();	
+            setTimeout(function(){isScrolling = 0;}, 100);
+          });						
+      
+    });						
+    
+    
+  }).hover(function(){
+      $(this).addClass('expand');
+    },function(){
+      $(this).removeClass('expand');
+  });
+
+
+  $('#espose').click(function(){
+    $('#bootstrap-carousel').fadeOut();
+    $('.thumbs').fadeIn();	
+  });
+    
+
+  });
+
+  $.fn.scrollTo = function( target, options, callback ){
+  if(typeof options == 'function' && arguments.length == 2){ callback = options; options = target; }
+  var settings = $.extend({
+    scrollTarget  : target,
+    offsetTop     : 50,
+    duration      : 500,
+    easing        : 'swing'
+  }, options);
+  return this.each(function(){
+    var scrollPane = $(this);
+    var scrollTarget = (typeof settings.scrollTarget == "number") ? settings.scrollTarget : $(settings.scrollTarget);
+    var scrollY = (typeof scrollTarget == "number") ? scrollTarget : scrollTarget.offset().top + scrollPane.scrollTop() - parseInt(settings.offsetTop);
+    scrollPane.animate({scrollTop : scrollY }, parseInt(settings.duration), settings.easing, function(){
+      if (typeof callback == 'function') { callback.call(this); }
+    });
+  });
+  }
+</script>
+ 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/easing.js"></script>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4 border-start">
         <div class="position-sticky" style="top: 2rem;">
         
           <div class="display-flex">

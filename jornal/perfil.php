@@ -45,7 +45,7 @@ $usuarios = $sql_query->fetch_assoc();
 }
 
 .cover {
-    background-image: url(<?php echo $usuarios['caminho_imagem_background'] ?>);
+    background-image: url(<?php echo $usuarios['caminho_imagem_background'] ?>), url(assets/img/slide1.jpg);
     background-size: cover;
     background-repeat: no-repeat
 }
@@ -89,17 +89,17 @@ body {
             <div class="bg-white shadow rounded overflow-hidden"> 
                 <div class="px-4 pt-0 pb-4 cover"> 
                     <div class="col-lg-4">
-                        <img class="border border-dark bd-placeholder-img rounded-circle mb-2 mt-5" width="160" height="160"  src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'img/logo.png') this.src = 'img/slide1.jpg';" alt="">
+                        <img class="border border-dark bd-placeholder-img rounded-circle mb-2 mt-5" width="160" height="160"  src="<?php echo $usuarios['caminho_imagem_perfil'] ?>" onerror="if (this.src != 'assets/img/logo.png') this.src = 'assets/img/slide1.jpg';" alt="">
                     </div> 
                     <div class="media-body mb-5 "></div>
-                    <a class="btn btn-outline-info"  href="editar_perfil.php">Editar perfil</a>
+                    <a class="btn btn-info"  href="editar_perfil.php">Editar perfil</a>
                 </div> 
 
                     <div class="px-4 py-3">
                         <div class="media-body mb-5 text-black"> 
                             <h4 class="mt-0 mb-0"><?php echo $perfil  ?> </h4>
                         </div> 
-                            <h5 class="mb-0">Sobre mim</h5> 
+                            <h5 class="mb-0">Cargo</h5> 
                         <div class="p-4 rounded shadow-lg bg-light"> 
                             <p><?php echo $usuarios['descricao'] ?></p>    
                         </div> 

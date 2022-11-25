@@ -107,7 +107,7 @@ $usuarios = $sql_query->fetch_assoc();
                     <div class="rounded mt-5 p-4 shadow" >
                         <h4 class="text-center" >Imagem Destaque</h4>
                         <div class="text-center mb-3" >
-                          <img id="output" width="150" height="150" src="" alt="">
+                          <img id="output" width="150" height="150" src="" onerror="if (this.src != 'assets/img/imgdefault.png') this.src = 'assets/img/imgdefault.jpg';" alt="">
                           <script>
                             var loadFile = function(event) {
                               var output = document.getElementById('output');
