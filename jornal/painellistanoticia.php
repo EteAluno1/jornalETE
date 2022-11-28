@@ -120,7 +120,7 @@ $usuarios = $sql_query_usuarios->fetch_assoc();
                           <a class="btn btn-secondary" href="" type="button" data-bs-toggle="modal" data-bs-target="#vernoticia">Ver noticia</a>
                         </td>
                         <td>
-                          <a class="btn btn-secondary" href="">Editar</a> 
+                          <a class="btn btn-secondary" href="editar_noticia.php?id=<?php echo $noticias['id'] ?>">Editar</a> 
                           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?php echo $noticias['id'] ?>">Excluir</button>
                         </td>
                     </tr>                                    
