@@ -39,6 +39,7 @@ $noticias = $query->fetch(PDO::FETCH_ASSOC);
                 $insert -> bindValue(':img', $caminho);
                 $insert -> bindValue(':categoria', $categoria);
                 $insert -> execute();
+<<<<<<< HEAD
               } else {
                 $insert = $pdo->prepare("UPDATE noticias SET  titulo=:textT , card_noticia = :textN , data_upload = now() , categoria = :categoria WHERE id=$id");
                 $insert -> bindValue(':textT',$pega_titulo);
@@ -46,6 +47,8 @@ $noticias = $query->fetch(PDO::FETCH_ASSOC);
                 $insert -> bindValue(':categoria', $categoria);
                 $insert -> execute();
               }
+=======
+>>>>>>> fd5c85f9e9db847869fd3a47fd4d2e1c73850b19
                 
                 if($insert){
                   echo "<script> alert('Noticia Editada !!')</script>";
