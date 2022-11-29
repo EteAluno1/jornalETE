@@ -983,6 +983,7 @@ $sql_query = $conexao->query("SELECT * FROM usuarios ") or die($conexao->error);
   });
 
 }());
+console.log("creditos pela cor Danuza!");
 </script> <!-- galeria script -->
 
      
